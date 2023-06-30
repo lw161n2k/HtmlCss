@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
+    image: localstack/localstack:latest
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+      # - SERVICE=serverless,cognito,rds,sqs,sns,cloudformation
+      # - EDGE_PORT=4566
+      # - DATA_DIR=/tmp/localstack/data
+      # - DOCKER_HOST=unix:///var/run/docker.sock
+      # - HOST_TMP_FOLDER=${TMPDIR}
+      # - LAMBDA_EXECUTOR=docker
+    ports:
+      - "4566-4597:4566-4597"
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
